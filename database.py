@@ -17,4 +17,15 @@ def crea_tabella():
     connessione.commit()
     connessione.close()
 
-crea_tabella()
+
+if __name__ == "__main__":
+    crea_tabella()
+
+def salva_allenamento(scheda):
+    connessione = sqlite3.connect("data/allenamenti.db")
+    connessione.execute("""INSERT OR IGNORE INTO allenamenti (
+        inizio, sport, distanza, durata, battito_medio, battito_max,
+        velocita_media, dislivello, calorie
+    ) VALUES (:inizio, :sport, :distanza, :durata, :battito_medio, :battito_max, :velocita_media, :dislivello, :calorie)""", scheda)
+    connessione.commit()
+    connessione.close()
